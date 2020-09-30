@@ -1,0 +1,17 @@
+Get Capital to display or Flag
+
+
+Option to type in country name or choose from a list of options (as name types, populates a list of suggestions, max 5?)
+
+To create randomised list, put correct country in an array, then use Math.random to put other countries before or after
+
+keep track of correct answers
+
+make list of incorrect
+
+
+
+https://restcountries.eu/rest/v2/name/united
+
+
+https://restcountries.eu/#api-endpoints-all
