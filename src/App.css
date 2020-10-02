@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+html {
+  margin: 0;
+  top: 0;
+  left: 0;
+}
+.App {
+  margin: 0;
+  top: 0;
+  left: 0;
+  background: #cfdabe;
+  background: -webkit-linear-gradient(bottom left, #cfdabe, #b9d2bd);
+  background: -moz-linear-gradient(bottom left, #cfdabe, #b9d2bd);
+  background: linear-gradient(to top right, #cfdabe, #b9d2bd);
+}
+* {
+  font-family: "Roboto", sans-serif;
+}
