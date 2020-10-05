@@ -56,7 +56,7 @@ const StyledCard = styled.div`
       font-size: 1rem;
       flex: 1;
       width: 25%;
-      margin: 5px auto;
+      margin: 0.2rem 0;
       font-weight: 900;
     }
   }

@@ -17,10 +17,16 @@ const StyledSearch = styled.div`
   background: rgba(80, 80, 80, 0.8);
   margin: 0 -1rem -1rem -1rem;
   * {
-    margin: 1rem;
+    margin: 0.3rem 0.6rem;
   }
   * {
     flex-shrink: 1;
+  }
+  span {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -37,15 +43,26 @@ export default function Search({ setSearchText, searchText }) {
         }}
         value={searchText}
       />
-      <StyledButton
-        onClick={(e) => {
-          e.preventDefault();
-          setSearchText("");
-        }}
-      >
-        Clear
-      </StyledButton>
-      <a href="#top">Back to top</a>
+      <span>
+        <StyledButton
+          onClick={(e) => {
+            e.preventDefault();
+            setSearchText("");
+          }}
+        >
+          Clear
+        </StyledButton>
+        <StyledButton
+          onClick={(e) =>
+            setTimeout(() => {
+              e.preventDefault();
+              window.scrollTo(0, 0);
+            }, 0)
+          }
+        >
+          Back to top
+        </StyledButton>
+      </span>
     </StyledSearch>
   );
 }
