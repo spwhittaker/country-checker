@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   background-color: #4caf50;
   border: none;
   color: white;
   margin: auto;
-  padding: 5px 10px;
+  padding: 10px 10px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -37,6 +37,8 @@ const StyledDiv = styled.div`
 `;
 const StyledP = styled.p`
   color: black;
+  flex-grow: 1;
+  text-align: center;
 `;
 const StyledList = styled.div`
   display: grid;

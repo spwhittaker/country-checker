@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import Title from "./Components/Title";
 import CountryCard from "./Components/CountryCard";
 import List from "./Components/List";
+import Search from "./Components/Search";
+import CardSearchContainer from "./Components/CardSearchContainer";
 import "./App.css";
-import API from "./utils/API";
+import { defaultSearch, nameSearch } from "./utils/API";
 import * as Vibrant from "node-vibrant";
 import { lighten, darken } from "polished";
 
 function App() {
   const [countryNames, setCountryNames] = useState([]);
   const [countryData, setCountryData] = useState([]);
+  const [searchText, setSearchText] = useState("");
   const [currentCountry, setCurrentCountry] = useState({
     name: "United Kingdom of Great Britain and Northern Ireland",
     capital: "London",
@@ -36,14 +39,27 @@ function App() {
     let ignore = false;
 
     async function fetchData() {
-      const result = await API.get("/");
       if (!ignore) {
-        const names = result.data.map((country) => country.name);
-        const countries = result.data.map(
-          ({ name, capital, flag, altSpellings }) => {
-            return { name, capital, flag, otherNames: [...altSpellings] };
+        let result = null;
+        if (searchText === "") {
+          try {
+            result = await defaultSearch.get("/");
+          } catch (err) {
+            console.error(err.response.data);
           }
-        );
+        } else {
+          try {
+            result = await nameSearch.get(`/${searchText}`);
+          } catch (err) {
+            console.error(err.response.data);
+          }
+        }
+        const names = result ? result.data.map((country) => country.name) : [];
+        const countries = result
+          ? result.data.map(({ name, capital, flag, altSpellings }) => {
+              return { name, capital, flag, otherNames: [...altSpellings] };
+            })
+          : [];
 
         setCountryNames(names);
         setCountryData(countries);
@@ -68,21 +84,24 @@ function App() {
         });
       }
     }
-    fetchData();
+    fetchData(searchText);
 
     return () => {
       ignore = true;
     };
-  }, [currentCountry]);
+  }, [currentCountry, searchText]);
 
   return (
     <div className="App">
       <Title>Country Checker</Title>
-
-      <CountryCard
-        currentCountry={currentCountry}
-        accentColors={accentColors}
-      />
+      <CardSearchContainer>
+        {" "}
+        <CountryCard
+          currentCountry={currentCountry}
+          accentColors={accentColors}
+        />
+        <Search setSearchText={setSearchText} searchText={searchText} />
+      </CardSearchContainer>
 
       <List
         names={countryNames}

@@ -1,28 +1,30 @@
 import React from "react";
 import styled from "styled-components";
 const StyledCard = styled.div`
-  position: sticky;
-  top: 1rem;
+  box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
+
   margin: auto;
+  margin-bottom: 1rem;
   text-align: center;
   max-width: 700px;
   min-width: 50vw;
   border: 5px solid ${(props) => props.accentColors.Vibrant || "black"};
-  border-radius: 3px;
-  padding: 1rem;
+
   background: ${(props) => props.accentColors.LighterMuted || "white"};
   img {
-    border: 2px solid black;
     display: block;
     margin: auto;
     width: 30%;
     height: "auto";
   }
   h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    line-height: 1;
+    margin: 0.5rem;
   }
   h3 {
-    font-size: 2rem;
+    font-size: 1.4rem;
+    margin: 0.5rem;
   }
   > div {
     margin-top: 1rem;
@@ -50,8 +52,8 @@ const StyledCard = styled.div`
     p {
       border: ${(props) => props.accentColors.Vibrant || "black"} 2px solid;
       text-align: center;
-      padding: 1rem;
-      font-size: 1.5rem;
+      padding: 0.5rem 0.4rem;
+      font-size: 1rem;
       flex: 1;
       width: 25%;
       margin: 5px auto;
