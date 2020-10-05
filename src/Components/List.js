@@ -29,7 +29,7 @@ const StyledDiv = styled.div`
   @media screen and (max-width: 600px) {
     margin: 0.1rem;
     padding: 0.1rem;
-    max-height: 50px;
+
   }
   background-image: linear-gradient(
     to left top,
