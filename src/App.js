@@ -4,6 +4,7 @@ import CountryCard from "./Components/CountryCard";
 import List from "./Components/List";
 import Search from "./Components/Search";
 import CardSearchContainer from "./Components/CardSearchContainer";
+import StyledFooter from "./Components/Footer";
 import "./App.css";
 import { defaultSearch, nameSearch } from "./utils/API";
 import * as Vibrant from "node-vibrant";
@@ -54,11 +55,25 @@ function App() {
             console.error(err.response.data);
           }
         }
-        const names = result ? result.data.map((country) => country.name) : [];
+        const names = result
+          ? result.data
+              .map((country) => country.name)
+              .sort((a, b) => {
+                const textA = a.toUpperCase();
+                const textB = b.toUpperCase();
+                return textA < textB ? -1 : textA > textB ? 1 : 0;
+              })
+          : [];
         const countries = result
-          ? result.data.map(({ name, capital, flag, altSpellings }) => {
-              return { name, capital, flag, otherNames: [...altSpellings] };
-            })
+          ? result.data
+              .map(({ name, capital, flag, altSpellings }) => {
+                return { name, capital, flag, otherNames: [...altSpellings] };
+              })
+              .sort((a, b) => {
+                const textA = a.name.toUpperCase();
+                const textB = b.name.toUpperCase();
+                return textA < textB ? -1 : textA > textB ? 1 : 0;
+              })
           : [];
 
         setCountryNames(names);
@@ -95,7 +110,6 @@ function App() {
     <div className="App">
       <Title>Country Checker</Title>
       <CardSearchContainer>
-        {" "}
         <CountryCard
           currentCountry={currentCountry}
           accentColors={accentColors}
@@ -109,6 +123,7 @@ function App() {
         countryData={countryData}
         currentCountry={currentCountry}
       />
+      <StyledFooter />
     </div>
   );
 }

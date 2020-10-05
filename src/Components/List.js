@@ -6,19 +6,31 @@ export const StyledButton = styled.button`
   border: none;
   color: white;
   margin: auto;
-  padding: 10px 10px;
+  padding: 0.4rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 16px;
+  font-size: 1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.5rem;
+    padding: 0.3rem;
+  }
 `;
 const StyledDiv = styled.div`
   border: solid 1px black;
   display: flex;
   flex-direction: column;
   min-height: 50px;
-  justify-content: center;
-  padding: 2px;
+
+  margin: 0.2rem;
+  padding: 0.2rem;
+  flex-grow: 1;
+
+  @media screen and (max-width: 600px) {
+    margin: 0.1rem;
+    padding: 0.1rem;
+    max-height: 50px;
+  }
   background-image: linear-gradient(
     to left top,
     #fff6fb,
@@ -39,13 +51,20 @@ const StyledP = styled.p`
   color: black;
   flex-grow: 1;
   text-align: center;
+  font-size: 1rem;
+  @media screen and (max-width: 600px) {
+    font-size: 0.6rem;
+  }
 `;
 const StyledList = styled.div`
   display: grid;
-  margin: 3px;
+  max-width: 12in;
+  justify-content: flex-start;
+
+  margin: 1rem auto auto auto;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
-  gap: 3px 3px;
+  gap: 1px 1px;
   grid-template-areas:
     ". . . . ."
     ". . . . ."
@@ -57,6 +76,16 @@ const StyledList = styled.div`
     ". . . . ."
     ". . . . .";
 `;
+
+const StyledH6 = styled.h6`
+  font-size: 1.5rem;
+  color: rgba(56, 62, 235, 1);
+  flex-grow: 1;
+  font-family: "Domine", sans-serif;
+  align-self: flex-start;
+  margin: 1rem 1rem auto 1rem;
+`;
+
 export default function List({
   names,
   setCurrentCountry,
@@ -64,7 +93,9 @@ export default function List({
   currentCountry,
   setAccentColors,
 }) {
-  return (
+  return names.length === 0 ? (
+    <StyledH6>Nothing to see here, please try another search.</StyledH6>
+  ) : (
     <StyledList>
       {names.map((name, index) => (
         <StyledDiv key={index}>

@@ -2,7 +2,15 @@ import React from "react";
 import styled from "styled-components";
 const StyledCard = styled.div`
   box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
-
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 500px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
   margin: auto;
   margin-bottom: 1rem;
   text-align: center;
@@ -13,22 +21,29 @@ const StyledCard = styled.div`
   background: ${(props) => props.accentColors.LighterMuted || "white"};
   img {
     display: block;
-    margin: auto;
-    width: 30%;
+    margin: 0.5rem auto;
+    max-width: 30vw;
     height: "auto";
   }
   h1 {
     font-size: 2rem;
     line-height: 1;
     margin: 0.5rem;
+    @media screen and (max-width: 500px) {
+      font-size: 1.2rem;
+    }
   }
   h3 {
     font-size: 1.4rem;
     margin: 0.5rem;
+    @media screen and (max-width: 500px) {
+      font-size: 1rem;
+    }
   }
   > div {
     margin-top: 1rem;
     padding: 0.5rem;
+    margin: auto;
     border: ${(props) => props.accentColors.DarkVibrant || "white"} 1px solid;
     background-color: ${(props) => props.accentColors.LightestMuted || "white"};
   }
@@ -36,6 +51,9 @@ const StyledCard = styled.div`
     font-size: 1.75rem;
     line-height: 1;
     margin: 1rem 1rem 0 1rem;
+    @media screen and (max-width: 500px) {
+      font-size: 1rem;
+    }
   }
 
   * {
@@ -43,6 +61,7 @@ const StyledCard = styled.div`
   }
 
   div {
+    margin-bottom: 0.15rem;
     div {
       display: flex;
       flex-wrap: wrap;
@@ -58,6 +77,9 @@ const StyledCard = styled.div`
       width: 25%;
       margin: 0.2rem 0;
       font-weight: 900;
+      @media screen and (max-width: 500px) {
+        font-size: 0.8rem;
+      }
     }
   }
 `;

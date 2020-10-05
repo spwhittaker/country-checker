@@ -6,6 +6,6 @@ export default styled.div`
   display: block;
   flex-direction: column;
   justify-content: center;
-  background: rgba(250, 250, 250, 0.8);
+  background: rgba(183, 217, 227, 0.75);
   padding: 1rem;
 `;
