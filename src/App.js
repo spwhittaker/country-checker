@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import Title from "./Components/Title";
+import { Title, StyledA } from "./Components/Title";
 import CountryCard from "./Components/CountryCard";
-import List from "./Components/List";
+import List, { StyledH6, StyledButton } from "./Components/List";
 import Search from "./Components/Search";
+import Test from "./Components/Test";
 import CardSearchContainer from "./Components/CardSearchContainer";
 import StyledFooter from "./Components/Footer";
 import "./App.css";
 import { defaultSearch, nameSearch } from "./utils/API";
 import * as Vibrant from "node-vibrant";
 import { lighten, darken } from "polished";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 
 function App() {
   const [countryNames, setCountryNames] = useState([]);
@@ -107,24 +109,48 @@ function App() {
   }, [currentCountry, searchText]);
 
   return (
-    <div className="App">
-      <Title>Country Checker</Title>
-      <CardSearchContainer>
-        <CountryCard
-          currentCountry={currentCountry}
-          accentColors={accentColors}
-        />
-        <Search setSearchText={setSearchText} searchText={searchText} />
-      </CardSearchContainer>
+    <BrowserRouter className="browser-router">
+      <div className="App">
+        <StyledA
+          href="/"
+          alt="Country Checker Home"
+          styles={{ textDecoration: "none" }}
+        >
+          <Title>Country Checker</Title>
+        </StyledA>
+        <Switch>
+          <Route exact path="/">
+            <CardSearchContainer>
+              <CountryCard
+                currentCountry={currentCountry}
+                accentColors={accentColors}
+              />
+              <Search setSearchText={setSearchText} searchText={searchText} />
+            </CardSearchContainer>
 
-      <List
-        names={countryNames}
-        setCurrentCountry={setCurrentCountry}
-        countryData={countryData}
-        currentCountry={currentCountry}
-      />
-      <StyledFooter />
-    </div>
+            <List
+              names={countryNames}
+              setCurrentCountry={setCurrentCountry}
+              countryData={countryData}
+              currentCountry={currentCountry}
+            />
+          </Route>
+          <Route exact path="/test">
+            <Test />
+          </Route>
+          <Route path="/">
+            <StyledH6>Page not found. </StyledH6>
+            <StyledButton>
+              <a href="/" alt="Home">
+                Return to homepage
+              </a>
+            </StyledButton>
+            <div style={{ flexGrow: 10 }}></div>
+          </Route>
+        </Switch>
+        <StyledFooter />
+      </div>
+    </BrowserRouter>
   );
 }
 

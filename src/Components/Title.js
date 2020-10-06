@@ -1,6 +1,11 @@
 import styled from "styled-components";
-
-const Title = styled.h1`
+export const StyledA = styled.a`
+  text-decoration: none;
+  * {
+    text-decoration: none;
+  }
+`;
+export const Title = styled.h1`
   font-size: 3rem;
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
@@ -21,11 +26,8 @@ const Title = styled.h1`
   font-size: 4rem;
   margin: 0 0 1rem 0;
   height: 5rem;
-
   padding: 1rem;
   text-align: center;
   vertical-align: middle;
   line-height: 5rem;
 `;
-
-export default Title;

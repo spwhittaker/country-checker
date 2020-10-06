@@ -11,18 +11,31 @@ const StyledCard = styled.div`
       font-size: 1.2rem;
     }
   }
+  @media screen and (min-aspect-ratio: 7
+    /9) {
+    flex-direction: row;
+    align-items: center;
+  }
+
   margin: auto;
   margin-bottom: 1rem;
   text-align: center;
   max-width: 700px;
+
+  @media screen and (min-aspect-ratio: 7
+    /9) {
+    max-width: 1400px;
+  }
   min-width: 50vw;
   border: 5px solid ${(props) => props.accentColors.Vibrant || "black"};
 
   background: ${(props) => props.accentColors.LighterMuted || "white"};
   img {
     display: block;
+    padding: 0.3rem;
     margin: 0.5rem auto;
     max-width: 30vw;
+    max-height: 15vh;
     height: "auto";
   }
   h1 {
@@ -32,11 +45,19 @@ const StyledCard = styled.div`
     @media screen and (max-width: 500px) {
       font-size: 1.2rem;
     }
+    @media screen and (min-aspect-ratio: 7/9) {
+      font-size: 1.2rem;
+    }
   }
   h3 {
     font-size: 1.4rem;
     margin: 0.5rem;
+    align-self: center;
     @media screen and (max-width: 500px) {
+      font-size: 1rem;
+    }
+    @media screen and (min-aspect-ratio: 7
+    /9) {
       font-size: 1rem;
     }
   }
@@ -54,6 +75,10 @@ const StyledCard = styled.div`
     @media screen and (max-width: 500px) {
       font-size: 1rem;
     }
+    @media screen and (min-aspect-ratio: 7
+    /9) {
+      font-size: 1rem;
+    }
   }
 
   * {
@@ -61,7 +86,7 @@ const StyledCard = styled.div`
   }
 
   div {
-    margin-bottom: 0.15rem;
+    margin: 0.15rem auto;
     div {
       display: flex;
       flex-wrap: wrap;
@@ -79,6 +104,11 @@ const StyledCard = styled.div`
       font-weight: 900;
       @media screen and (max-width: 500px) {
         font-size: 0.8rem;
+      }
+      @media screen and (min-aspect-ratio: 7
+    /9) {
+        font-size: 0.7rem;
+        margin: 0.15rem;
       }
     }
   }

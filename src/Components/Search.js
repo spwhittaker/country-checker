@@ -16,6 +16,9 @@ const StyledSearch = styled.div`
   justify-content: center;
   background: rgba(80, 80, 80, 0.8);
   margin: 0 -1rem -1rem -1rem;
+  p {
+    color: white;
+  }
   * {
     margin: 0.3rem 0.6rem;
   }

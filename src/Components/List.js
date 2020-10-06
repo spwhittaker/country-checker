@@ -11,9 +11,21 @@ export const StyledButton = styled.button`
   text-decoration: none;
   display: inline-block;
   font-size: 1rem;
+  box-sizing: border-box;
+  a {
+    text-decoration: none;
+    color: white;
+  }
   @media screen and (max-width: 600px) {
-    font-size: 0.5rem;
-    padding: 0.3rem;
+    font-size: 0.7rem;
+    padding: 0.2rem;
+  }
+
+  &:hover {
+    box-sizing: border-box;
+    background-color: white;
+
+    color: #4caf50;
   }
 `;
 const StyledDiv = styled.div`
@@ -28,8 +40,10 @@ const StyledDiv = styled.div`
 
   @media screen and (max-width: 600px) {
     margin: 0.1rem;
+    padding: 0.15rem;
+  }
+  @media screen and (max-width: 450px) {
     padding: 0.1rem;
-    max-height: 50px;
   }
   background-image: linear-gradient(
     to left top,
@@ -51,9 +65,13 @@ const StyledP = styled.p`
   color: black;
   flex-grow: 1;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.1rem;
   @media screen and (max-width: 600px) {
-    font-size: 0.6rem;
+    font-size: 1rem;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 0.8rem;
+    margin: 0.3rem;
   }
 `;
 const StyledList = styled.div`
@@ -75,9 +93,35 @@ const StyledList = styled.div`
     ". . . . ."
     ". . . . ."
     ". . . . .";
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      ". . . ."
+      ". . . ."
+      ". . . ."
+      ". . . ."
+      ". . . ."
+      ". . . ."
+      ". . . ."
+      ". . . ."
+      ". . . .";
+  }
+  @media screen and (max-width: 450px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+      ". . ."
+      ". . ."
+      ". . ."
+      ". . ."
+      ". . ."
+      ". . ."
+      ". . ."
+      ". . ."
+      ". . .";
+  }
 `;
 
-const StyledH6 = styled.h6`
+export const StyledH6 = styled.h6`
   font-size: 1.5rem;
   color: rgba(56, 62, 235, 1);
   flex-grow: 1;
