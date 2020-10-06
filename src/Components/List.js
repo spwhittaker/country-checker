@@ -44,6 +44,10 @@ const StyledDiv = styled.div`
   }
   @media screen and (max-width: 450px) {
     padding: 0.1rem;
+<<<<<<< HEAD
+=======
+
+>>>>>>> e7ea271924951500c2cf5bf64492d74452a79d20
   }
   background-image: linear-gradient(
     to left top,
