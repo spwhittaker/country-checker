@@ -136,7 +136,11 @@ function App() {
             />
           </Route>
           <Route exact path="/test">
-            <Test />
+            <Test
+              countryData={countryData}
+              currentCountry={currentCountry}
+              setCurrentCountry={setCurrentCountry}
+            />
           </Route>
           <Route path="/">
             <StyledH6>Page not found. </StyledH6>

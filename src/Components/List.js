@@ -1,21 +1,29 @@
 import React from "react";
 import styled from "styled-components";
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.a`
   background-color: #4caf50;
-  border: none;
+  border: 2px white solid;
   color: white;
   margin: auto;
   padding: 0.4rem;
+  min-width: ${(props) => props.btnWidth || "100px"};
+  min-height: ${(props) => props.minHeight || "30px"};
+  max-width: 120px;
   text-align: center;
+  vertical-align: middle;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1rem;
   box-sizing: border-box;
-  a {
-    text-decoration: none;
-    color: white;
-  }
+  flex-grow: 1;
+  flex-basis: 0;
+  cursor: pointer;
+
+  text-decoration: none;
+  color: white;
   @media screen and (max-width: 600px) {
     font-size: 0.7rem;
     padding: 0.2rem;
@@ -24,7 +32,7 @@ export const StyledButton = styled.button`
   &:hover {
     box-sizing: border-box;
     background-color: white;
-
+    border: 2px #4caf50 solid;
     color: #4caf50;
   }
 `;
@@ -44,10 +52,6 @@ const StyledDiv = styled.div`
   }
   @media screen and (max-width: 450px) {
     padding: 0.1rem;
-<<<<<<< HEAD
-=======
-
->>>>>>> e7ea271924951500c2cf5bf64492d74452a79d20
   }
   background-image: linear-gradient(
     to left top,

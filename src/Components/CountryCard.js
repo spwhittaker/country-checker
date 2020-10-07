@@ -1,5 +1,15 @@
 import React from "react";
 import styled from "styled-components";
+
+export const StyledImg = styled.img`
+  display: block;
+  padding: 0.3rem;
+  margin: 0.5rem auto;
+  max-width: 30vw;
+  max-height: 15vh;
+  height: "auto";
+`;
+
 const StyledCard = styled.div`
   box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
   display: flex;
@@ -30,14 +40,7 @@ const StyledCard = styled.div`
   border: 5px solid ${(props) => props.accentColors.Vibrant || "black"};
 
   background: ${(props) => props.accentColors.LighterMuted || "white"};
-  img {
-    display: block;
-    padding: 0.3rem;
-    margin: 0.5rem auto;
-    max-width: 30vw;
-    max-height: 15vh;
-    height: "auto";
-  }
+
   h1 {
     font-size: 2rem;
     line-height: 1;
@@ -122,7 +125,7 @@ export default function CountryCard({
     <StyledCard accentColors={accentColors}>
       <h1>{name}</h1>
       {capital && <h3>Capital: {capital}</h3>}
-      <img src={flag} alt={`${name} flag`} />
+      <StyledImg src={flag} alt={`${name} flag`} />
       {otherNames.length > 0 && (
         <div>
           <h4>Other names</h4>
