@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 import { StyledButton } from "./List";
 
-const StyledSearch = styled.div`
+export const StyledSearch = styled.div`
   display: flex;
 
   text-align: center;
@@ -15,7 +15,7 @@ const StyledSearch = styled.div`
   align-items: center;
   justify-content: center;
   background: rgba(80, 80, 80, 0.8);
-  margin: 0 -1rem -1rem -1rem;
+  margin: ${(props) => props.marginProps || "0 -1rem -1rem -1rem"};
   p {
     color: white;
   }

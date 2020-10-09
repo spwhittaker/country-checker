@@ -9,7 +9,7 @@ export const StyledButton = styled.a`
   padding: 0.4rem;
   min-width: ${(props) => props.btnWidth || "100px"};
   min-height: ${(props) => props.minHeight || "30px"};
-  max-width: 120px;
+  max-width: ${(props) => props.maxWidth || "120px"};
   text-align: center;
   vertical-align: middle;
   text-decoration: none;
@@ -21,7 +21,6 @@ export const StyledButton = styled.a`
   flex-grow: 1;
   flex-basis: 0;
   cursor: pointer;
-
   text-decoration: none;
   color: white;
   @media screen and (max-width: 600px) {
