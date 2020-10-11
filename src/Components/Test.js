@@ -1,65 +1,39 @@
-import styled from "styled-components";
+import { QuizImg } from "./styling/Imgs";
 import React, { useState } from "react";
-import { StyledButton, StyledH6 } from "./List";
-import { StyledImg } from "./CountryCard";
 import QuizSearch from "./QuizSearch";
+import { StyledButton, QuizSearchResultButton } from "./styling/Buttons";
+import { StyledSpan, FlexSpan } from "./styling/Spans";
+import { FlexDiv } from "./styling/Divs";
+import { StyledH3, StyledH6 } from "./styling/Headings";
+import { StyledImgContainer } from "./styling/Containers";
+import { StyledP } from "./styling/Ps";
 
-const StyledSpan = styled.span`
-  background: rgba(256, 256, 256, 0.3);
-  display: flex;
-  margin: ${(props) => props.marginProps || "auto"};
-  justify-content: space-around;
-  padding: 0.5rem;
-  display: flex;
-  flex-wrap: wrap;
-
-  min-width: ${(props) => props.minWidth || null};
-  max-width: 100%;
-  * {
-    flex: 1;
-    margin: 0.5rem;
-    display: block;
-  }
-`;
-
-const StyledImgContainer = styled.div`
-  background: rgba(256, 256, 256, 0.5);
-  padding: 0.5rem;
-  width: 15rem;
-  height: 15rem;
-  box-sizing: border-box;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;
-  img {
-    display: inline;
-
-    max-width: 100%;
-    max-height: 100%;
-  }
-`;
-const FlexSpan = styled.span`
-  display: flex;
-  justify-content: space-around;
-`;
 const Test = ({
   countryData,
   currentCountry,
   setCurrentCountry,
   currentCountry: { name, capital, flag, otherNames },
 }) => {
-  const testModes = ["Capital from Country", "Flag", "Country from Capital"];
+  const testModes = [
+    "Guess the Capital from the Country",
+    "Guess the Country from the Flag",
+    "Guess the Country from the Capital",
+  ];
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [incorrectAnswers, setIncorrectAnswers] = useState(0);
   const [randomCountries, setRandomCountries] = useState([]);
   const [multipleChoice, setMultipleChoice] = useState(true);
-  const [currentTestMode, setCurrentTestMode] = useState("Flag");
-  const [correctAnswer, setCorrectAnswer] = useState(null);
+  const [currentTestMode, setCurrentTestMode] = useState(
+    "Guess the Country from the Flag"
+  );
   const [answerHistory, setAnswerHistory] = useState([]);
   const [quizSearchText, setQuizSearchText] = useState("");
   const [quizSearchOptions, setQuizSearchOptions] = useState([]);
-
+  const correctAnswer =
+    answerHistory.length > 0
+      ? answerHistory[answerHistory.length - 1].name ===
+        answerHistory[answerHistory.length - 1].correctAnswer.name
+      : null;
   const getRandomCountries = () => {
     const tempArr = [];
     while (tempArr.length < 4) {
@@ -85,35 +59,47 @@ const Test = ({
 
     if (answer === currentCountry) {
       setCorrectAnswers(correctAnswers + 1);
-      setCorrectAnswer(true);
     } else {
       setIncorrectAnswers(incorrectAnswers + 1);
-      setCorrectAnswer(false);
     }
     setQuizSearchText("");
     setQuizSearchOptions([]);
     getRandomCountries();
   };
-  console.log(quizSearchOptions);
+  console.log(currentCountry);
   return (
     <>
-      <FlexSpan>
-        {answerHistory.length > 0 && <h3>Correct answers: {correctAnswers}</h3>}
+      <FlexSpan narrowFlexDirection={"row"}>
+        {answerHistory.length > 0 && (
+          <StyledH3>Correct answers: {correctAnswers}</StyledH3>
+        )}
         {countryData.length > 0 && (
-          <StyledSpan>
-            {/* <StyledButton onClick={() => setCurrentTestMode(testModes[0])}>
+          <StyledSpan marginProps="1rem">
+            <StyledButton
+              narrowMinHeight={"60px"}
+              narrowMinWidth={"50px"}
+              onClick={() => setCurrentTestMode(testModes[0])}
+            >
               Identify the Capital
-            </StyledButton> */}
-            <StyledButton onClick={() => setCurrentTestMode(testModes[1])}>
+            </StyledButton>
+            <StyledButton
+              narrowMinHeight={"60px"}
+              narrowMinWidth={"50px"}
+              onClick={() => setCurrentTestMode(testModes[1])}
+            >
               Identify the Flag
             </StyledButton>
-            {/* <StyledButton onClick={() => setCurrentTestMode(testModes[2])}>
+            <StyledButton
+              narrowMinHeight={"60px"}
+              narrowMinWidth={"50px"}
+              onClick={() => setCurrentTestMode(testModes[2])}
+            >
               Identify the Country
-            </StyledButton> */}
+            </StyledButton>
           </StyledSpan>
         )}
         {answerHistory.length > 0 && (
-          <h3>Incorrect answers: {incorrectAnswers}</h3>
+          <StyledH3>Incorrect answers: {incorrectAnswers}</StyledH3>
         )}
       </FlexSpan>
       {countryData.length === 0 && (
@@ -121,15 +107,22 @@ const Test = ({
       )}
       {countryData.length > 0 && (
         <>
-          <StyledSpan marginProps={"1rem"}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between",
-              }}
+          <StyledP flexGrow={0}>Test mode selected: {currentTestMode}</StyledP>
+          <StyledSpan
+            marginProps="1rem"
+            narrowFlexDirection={"column"}
+            narrowMinWidth={"95vw"}
+            narrowMarginProps={"0.3rem"}
+          >
+            <FlexDiv
+              longFlexDirection={"column"}
+              narrowFlexDirection={"row"}
+              wideFlexDirection={"column"}
             >
               <StyledButton
+                minHeight={"40px"}
+                narrowMinHeight={"55px"}
+                narrowMaxWidth={"120px"}
                 onClick={() => {
                   getRandomCountries();
                   setAnswerHistory([]);
@@ -138,41 +131,67 @@ const Test = ({
                 {answerHistory.length === 0 ? "Test countries!" : "Reset"}
               </StyledButton>
               <StyledButton
+                minHeight={"40px"}
+                narrowMinHeight={"55px"}
+                narrowMaxWidth={"120px"}
                 onClick={(prevProps) => setMultipleChoice(!multipleChoice)}
               >
                 {`Switch to ${
                   multipleChoice ? "typing" : "multiple choice"
                 } mode`}
               </StyledButton>
-            </div>
-            {currentTestMode === "Flag" && (
+            </FlexDiv>
+            {currentTestMode === testModes[0] && name !== null && (
+              <StyledSpan>
+                <StyledH3>{name}</StyledH3>
+              </StyledSpan>
+            )}
+            {currentTestMode === testModes[1] && flag !== null && (
               <StyledImgContainer>
-                <StyledImg src={flag} alt={`Country flag`} />
+                <QuizImg src={flag} alt={`Country flag`} />
               </StyledImgContainer>
             )}
+
+            {currentTestMode === testModes[2] && capital !== null && (
+              <StyledSpan>
+                <StyledH3>{capital}</StyledH3>
+              </StyledSpan>
+            )}
             {correctAnswer !== null && answerHistory.length > 0 ? (
-              <h3>{`You selected ${
-                answerHistory[answerHistory.length - 1].name
+              <StyledH3 h3Width={"100%"}>{`You selected ${
+                currentTestMode === testModes[0]
+                  ? answerHistory[answerHistory.length - 1].capital
+                  : answerHistory[answerHistory.length - 1].name
               }, which was ${correctAnswer ? "correct" : "incorrect"}.${
                 correctAnswer
                   ? ""
                   : ` The correct answer was ${
-                      answerHistory[answerHistory.length - 1].correctAnswer.name
+                      currentTestMode === testModes[0]
+                        ? answerHistory[answerHistory.length - 1].correctAnswer
+                            .capital
+                        : answerHistory[answerHistory.length - 1].correctAnswer
+                            .name
                     }.`
-              }`}</h3>
+              }`}</StyledH3>
             ) : (
               <div></div>
             )}
           </StyledSpan>
           {randomCountries.length > 0 &&
             (multipleChoice === true ? (
-              <StyledSpan minWidth={"60vw"}>
+              <StyledSpan minWidth={"60vw"} narrowMarginProps={"0.2rem"}>
                 {randomCountries.map((country) => (
                   <StyledButton
                     minHeight={"100px"}
+                    narrowMaxHeight={"100px"}
+                    narrowMinHeight={"70px"}
+                    narrowMinWidth={"40%"}
+                    maxWidth={"220px"}
                     onClick={() => submitAnswer(country)}
                   >
-                    {country.name}
+                    {currentTestMode === testModes[0]
+                      ? country.capital
+                      : country.name}
                   </StyledButton>
                 ))}
               </StyledSpan>
@@ -186,34 +205,36 @@ const Test = ({
                   setQuizSearchOptions={setQuizSearchOptions}
                 />
                 {quizSearchOptions.length > 0 && (
-                  <StyledSpan minWidth={"60vw"} maxWidth={"90vw"}>
-                    {quizSearchOptions.map((country) => (
-                      <StyledButton
-                        key={country.name}
-                        minHeight={"100px"}
-                        minWidth
-                        onClick={() => submitAnswer(country)}
-                        maxWidth={"auto"}
-                      >
-                        <div
-                          style={{
-                            display: "flex",
-                            height: "100%",
-                            flexDirection: "column",
-                            fontSize: "15px",
-                            padding: "1rem",
-                            justifyContent: "flex-start",
-                          }}
+                  <StyledSpan
+                    minWidth={"60vw"}
+                    maxWidth={"95vw"}
+                    narrowMarginProps={"1rem"}
+                  >
+                    {quizSearchOptions.map((country) =>
+                      currentTestMode === testModes[0] ? (
+                        <StyledButton>{country.capital}</StyledButton>
+                      ) : (
+                        <StyledButton
+                          key={country.name}
+                          minHeight={"150px"}
+                          minWidth={"27%"}
+                          onClick={() => submitAnswer(country)}
+                          maxWidth={"100%"}
+                          narrowMaxWidth={"100%"}
+                          maxHeightProp={"280px"}
+                          narrowMinWidth={"150px"}
+                          narrowWidth={"45%"}
+                          narrowMaxHeight={"200px"}
+                          narrowMinHeight={"150px"}
+                          alignItems={"flex-start"}
                         >
-                          <h1 style={{ fontSize: "12px", flexShrink: 1 }}>
-                            {country.name}
-                          </h1>
-                          <p
-                            style={{ fontSize: "10px", flexGrow: 1 }}
-                          >{`aka ${country.otherNames.join(", ")}`}</p>
-                        </div>
-                      </StyledButton>
-                    ))}
+                          <QuizSearchResultButton>
+                            <h1>{country.name}</h1>
+                            <p>{`aka ${country.otherNames.join(", ")}`}</p>
+                          </QuizSearchResultButton>
+                        </StyledButton>
+                      )
+                    )}
                   </StyledSpan>
                 )}
               </>

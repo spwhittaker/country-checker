@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Title, StyledA } from "./Components/Title";
 import CountryCard from "./Components/CountryCard";
-import List, { StyledH6, StyledButton } from "./Components/List";
+import List from "./Components/List";
+import { StyledH6 } from "./Components/styling/Headings";
+import { StyledButton } from "./Components/styling/Buttons";
 import Search from "./Components/Search";
 import Test from "./Components/Test";
-import CardSearchContainer from "./Components/CardSearchContainer";
+import { CardSearchContainer } from "./Components/styling/Containers";
 import StyledFooter from "./Components/Footer";
 import "./App.css";
 import { defaultSearch, nameSearch } from "./utils/API";
@@ -17,10 +19,10 @@ function App() {
   const [countryData, setCountryData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [currentCountry, setCurrentCountry] = useState({
-    name: "United Kingdom of Great Britain and Northern Ireland",
-    capital: "London",
-    flag: "https://restcountries.eu/data/gbr.svg",
-    otherNames: ["GB", "UK", "Great Britain"],
+    name: null,
+    capital: null,
+    flag: null,
+    otherNames: null,
   });
 
   const [accentColors, setAccentColors] = useState({});
@@ -80,25 +82,27 @@ function App() {
 
         setCountryNames(names);
         setCountryData(countries);
-        Vibrant.from(currentCountry.flag).getPalette((err, palette) => {
-          const paletteColors = {
-            DarkMuted: RGBToHex(palette.DarkMuted._rgb),
-            DarkVibrant: RGBToHex(palette.DarkVibrant._rgb),
-            DarkVibrantContrast: lighten(
-              0.2,
-              RGBToHex(palette.DarkVibrant._rgb)
-            ),
-            DarkerMuted: darken(0.1, RGBToHex(palette.DarkMuted._rgb)),
-            DarkestMuted: darken(0.2, RGBToHex(palette.DarkMuted._rgb)),
-            LightMuted: RGBToHex(palette.LightMuted._rgb),
-            LightVibrant: RGBToHex(palette.LightVibrant._rgb),
-            LighterMuted: lighten(0.3, RGBToHex(palette.LightMuted._rgb)),
-            LightestMuted: lighten(0.5, RGBToHex(palette.LightMuted._rgb)),
-            Muted: RGBToHex(palette.Muted._rgb),
-            Vibrant: RGBToHex(palette.Vibrant._rgb),
-          };
-          setAccentColors(paletteColors);
-        });
+        if (currentCountry.flag) {
+          Vibrant.from(currentCountry.flag).getPalette((err, palette) => {
+            const paletteColors = {
+              DarkMuted: RGBToHex(palette.DarkMuted._rgb),
+              DarkVibrant: RGBToHex(palette.DarkVibrant._rgb),
+              DarkVibrantContrast: lighten(
+                0.2,
+                RGBToHex(palette.DarkVibrant._rgb)
+              ),
+              DarkerMuted: darken(0.1, RGBToHex(palette.DarkMuted._rgb)),
+              DarkestMuted: darken(0.2, RGBToHex(palette.DarkMuted._rgb)),
+              LightMuted: RGBToHex(palette.LightMuted._rgb),
+              LightVibrant: RGBToHex(palette.LightVibrant._rgb),
+              LighterMuted: lighten(0.3, RGBToHex(palette.LightMuted._rgb)),
+              LightestMuted: lighten(0.5, RGBToHex(palette.LightMuted._rgb)),
+              Muted: RGBToHex(palette.Muted._rgb),
+              Vibrant: RGBToHex(palette.Vibrant._rgb),
+            };
+            setAccentColors(paletteColors);
+          });
+        }
       }
     }
     fetchData(searchText);

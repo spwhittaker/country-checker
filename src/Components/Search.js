@@ -1,37 +1,7 @@
 import React from "react";
 
-import styled from "styled-components";
-import { StyledButton } from "./List";
-
-export const StyledSearch = styled.div`
-  display: flex;
-
-  text-align: center;
-  justify-self: center;
-  margin: auto;
-  min-width: auto;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  background: rgba(80, 80, 80, 0.8);
-  margin: ${(props) => props.marginProps || "0 -1rem -1rem -1rem"};
-  p {
-    color: white;
-  }
-  * {
-    margin: 0.3rem 0.6rem;
-  }
-  * {
-    flex-shrink: 1;
-  }
-  span {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-`;
+import { StyledButton } from "./styling/Buttons";
+import { StyledSearch } from "./styling/Divs";
 
 export default function Search({ setSearchText, searchText }) {
   return (
@@ -48,6 +18,9 @@ export default function Search({ setSearchText, searchText }) {
       />
       <span>
         <StyledButton
+          narrowMinHeight={"40px"}
+          narrowMaxHeight={"40px"}
+          margin={"0 5px"}
           onClick={(e) => {
             e.preventDefault();
             setSearchText("");
@@ -56,6 +29,8 @@ export default function Search({ setSearchText, searchText }) {
           Clear
         </StyledButton>
         <StyledButton
+          narrowMinHeight={"40px"}
+          narrowMaxHeight={"40px"}
           onClick={(e) =>
             setTimeout(() => {
               e.preventDefault();

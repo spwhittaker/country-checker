@@ -1,6 +1,6 @@
 import React from "react";
-import { StyledSearch } from "./Search";
-import { StyledButton } from "./List";
+import { StyledSearch } from "./styling/Divs";
+import { StyledButton } from "./styling/Buttons";
 export default function QuizSearch({
   quizSearchText,
   setQuizSearchText,
@@ -19,6 +19,7 @@ export default function QuizSearch({
 
   return (
     <StyledSearch marginProps={"0 auto"}>
+      <p>Search</p>
       <input
         type="text"
         name="search"
@@ -31,6 +32,8 @@ export default function QuizSearch({
       />
       <span>
         <StyledButton
+          narrowMaxHeight={"50px"}
+          narrowMinHeight={"20px"}
           onClick={(e) => {
             e.preventDefault();
             setQuizSearchText("");
