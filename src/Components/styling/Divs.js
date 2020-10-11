@@ -190,7 +190,6 @@ export const StyledCard = styled.div`
 
 export const StyledSearch = styled.div`
   display: flex;
-
   text-align: center;
   justify-self: center;
   margin: auto;

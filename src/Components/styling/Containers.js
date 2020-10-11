@@ -2,13 +2,13 @@ import styled from "styled-components";
 export const StyledImgContainer = styled.div`
   background: rgba(256, 256, 256, 0.3);
 
-  width: 25vw;
-  height: 25vw;
-  box-sizing: border-box;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;
+  
+  width: 200px;
+  height: 200px;
+  line-height: 200px;  
+  text-align: center;
+  margin: auto;
+  padding: 0.5rem;
   vertical-align: middle;
   @media screen and (max-width: 600px) {
     width: 50vw;

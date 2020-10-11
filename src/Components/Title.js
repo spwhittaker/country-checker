@@ -24,7 +24,7 @@ export const Title = styled.h1`
   opacity: 0.7;
   font-family: "Domine", sans-serif;
   font-size: 4rem;
-  margin: 0 0 1rem 0;
+  margin: 0;
   height: 5rem;
   padding: 1rem;
   text-align: center;

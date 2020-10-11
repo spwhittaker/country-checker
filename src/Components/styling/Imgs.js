@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 export const QuizImg = styled.img`
-  width: 100%;
-  height: auto;
+  display: inline-block;
+  
   max-height: 100%;
-  overflow: hidden;
-  margin: 0.3rem;
+  max-width: 100%;
+  margin: 0 auto;
+  vertical-align: middle;
 `;
 
 export const StyledCardImg = styled.img`
