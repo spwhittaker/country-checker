@@ -69,7 +69,7 @@ const Test = ({
   console.log(currentCountry);
   return (
     <>
-      <FlexSpan narrowFlexDirection={"row"}>
+      <FlexSpan narrowFlexDirection={"row"} maxWidth={"10in"}>
         {answerHistory.length > 0 && (
           <StyledH3>Correct answers: {correctAnswers}</StyledH3>
         )}
@@ -109,10 +109,12 @@ const Test = ({
         <>
           <StyledP flexGrow={0}>Test mode selected: {currentTestMode}</StyledP>
           <StyledSpan
-            marginProps="1rem"
+            marginProps="1rem auto"
             narrowFlexDirection={"column"}
+            width={"70%"}
             narrowMinWidth={"95vw"}
             narrowMarginProps={"0.3rem"}
+            maxWidth={"10in"}
           >
             <FlexDiv
               longFlexDirection={"column"}
@@ -174,7 +176,7 @@ const Test = ({
                     }.`
               }`}</StyledH3>
             ) : (
-              <div></div>
+              <StyledH3 h3Width={"100%"} />
             )}
           </StyledSpan>
           {randomCountries.length > 0 &&

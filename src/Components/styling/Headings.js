@@ -25,13 +25,17 @@ export const StyledH1 = styled.h1`
 `;
 
 export const StyledH5 = styled.h5`
-font-size: 1rem;
+  font-size: 1rem;
   color: white;
   display: inline-block;
   padding: 1rem;
   font-family: "Domine", sans-serif;
   margin: 0 auto;
-  border: 1px solid white;
+
   vertical-align: center;
-  background: rgba(80, 80, 80, 0.8);
-`
+  background: rgb(80, 80, 80);
+  &:hover {
+    color: rgb(80, 80, 80);
+    background: white;
+  }
+`;

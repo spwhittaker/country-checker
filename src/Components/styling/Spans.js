@@ -7,9 +7,9 @@ export const StyledSpan = styled.span`
   padding: 0.5rem;
   display: flex;
   flex-wrap: wrap;
-
+width: ${(props) => props.width || null};
   min-width: ${(props) => props.minWidth || null};
-  max-width: 100%;
+  max-width: ${(props) => props.maxWidth || "100%"}};
   * {
     flex: 1;
   }
@@ -25,7 +25,8 @@ export const StyledSpan = styled.span`
 `;
 export const FlexSpan = styled.span`
   display: flex;
-  /* margin: auto; */
+  margin: ${(props) => props.margin || "auto"};
+  max-width: ${(props) => props.maxWidth || "100%"};
   justify-content: space-evenly;
   flex-direction: ${(props) => props.wideFlexDirection || "row"};
   @media screen and (max-width: 600px) {

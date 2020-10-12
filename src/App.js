@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Title, StyledA } from "./Components/Title";
 import CountryCard from "./Components/CountryCard";
 import List from "./Components/List";
-import { StyledH6, StyledH5 } from "./Components/styling/Headings";
+import Nav from "./Components/Nav";
+import { StyledH6 } from "./Components/styling/Headings";
 import { StyledButton } from "./Components/styling/Buttons";
 import Search from "./Components/Search";
 import Test from "./Components/Test";
@@ -122,18 +123,16 @@ function App() {
         >
           <Title>Country Checker</Title>
         </StyledA>
-        <nav style={{display: "flex", justifyContent: "space-around", background: "rgba(256,256,256,0.8)"}}>
-        <StyledA href='/' alt="Country Checker Home" styles={{ textDecoration: "none" }}><StyledH5>Home</StyledH5></StyledA>
-        <StyledA href='/test' alt='Country Tester' styles={{ textDecoration: "none" }}><StyledH5>Test your knowledge</StyledH5></StyledA>
-                </nav>
-        
+        <Nav></Nav>
         <Switch>
           <Route exact path="/">
-          <CardSearchContainer>
-          {currentCountry.name !== null && <CountryCard
-                currentCountry={currentCountry}
-                accentColors={accentColors}
-              />}
+            <CardSearchContainer>
+              {currentCountry.name !== null && (
+                <CountryCard
+                  currentCountry={currentCountry}
+                  accentColors={accentColors}
+                />
+              )}
               <Search setSearchText={setSearchText} searchText={searchText} />
             </CardSearchContainer>
 
