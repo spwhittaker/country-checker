@@ -221,7 +221,6 @@ export const StyledSearch = styled.div`
 `;
 export const FlexDiv = styled.div`
   display: flex;
-  /* margin: auto; */
   justify-content: space-evenly;
   flex-direction: ${(props) => props.wideFlexDirection || "row"};
   flex-wrap: wrap;

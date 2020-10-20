@@ -51,13 +51,13 @@ function App() {
           try {
             result = await defaultSearch.get("/");
           } catch (err) {
-            console.error(err.response.data);
+            console.error(err);
           }
         } else {
           try {
             result = await nameSearch.get(`/${searchText}`);
           } catch (err) {
-            console.error(err.response.data);
+            console.error(err);
           }
         }
         const names = result

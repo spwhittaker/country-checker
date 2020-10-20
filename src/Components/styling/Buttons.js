@@ -16,8 +16,6 @@ export const StyledButton = styled.a`
   align-items: ${(props) => props.alignItems || "center"};
   font-size: 1rem;
   box-sizing: border-box;
-  /*  flex-grow: 1;
-  flex-basis: 1; */
   flex: 1;
   cursor: pointer;
   text-decoration: none;

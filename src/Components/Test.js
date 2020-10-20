@@ -113,7 +113,7 @@ const Test = ({
             narrowFlexDirection={"column"}
             width={"70%"}
             narrowMinWidth={"95vw"}
-            narrowMarginProps={"0.3rem"}
+            narrowMarginProps={"0.3rem auto"}
             maxWidth={"10in"}
           >
             <FlexDiv
@@ -201,6 +201,7 @@ const Test = ({
               <>
                 <QuizSearch
                   quizSearchText={quizSearchText}
+                  currentTestMode={currentTestMode}
                   setQuizSearchText={setQuizSearchText}
                   countryData={countryData}
                   quizSearchOptions={quizSearchOptions}
@@ -214,7 +215,12 @@ const Test = ({
                   >
                     {quizSearchOptions.map((country) =>
                       currentTestMode === testModes[0] ? (
-                        <StyledButton>{country.capital}</StyledButton>
+                        <StyledButton
+                          key={country.capital}
+                          onClick={() => submitAnswer(country)}
+                        >
+                          {country.capital}
+                        </StyledButton>
                       ) : (
                         <StyledButton
                           key={country.name}

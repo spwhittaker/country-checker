@@ -7,14 +7,19 @@ export default function QuizSearch({
   countryData,
   quizSearchOptions,
   setQuizSearchOptions,
+  currentTestMode,
 }) {
   const filterOptions = (searchText) =>
     countryData.filter((country) => {
       const allNames = [...country.otherNames, country.name];
 
-      return allNames.find((name) =>
-        name.toLowerCase().includes(searchText.toLowerCase())
-      );
+      if (currentTestMode === "Guess the Capital from the Country") {
+        return country.capital.toLowerCase().includes(searchText.toLowerCase());
+      } else {
+        return allNames.find((name) =>
+          name.toLowerCase().includes(searchText.toLowerCase())
+        );
+      }
     });
 
   return (
