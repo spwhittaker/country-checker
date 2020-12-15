@@ -29,26 +29,54 @@ const Test = ({
   const [answerHistory, setAnswerHistory] = useState([]);
   const [quizSearchText, setQuizSearchText] = useState("");
   const [quizSearchOptions, setQuizSearchOptions] = useState([]);
+  const [incorrectAnswersArr, setIncorrectAnswersArr] = useState([]);
+  const [showIncorrectAnswers, setShowIncorrectAnswers] = useState(false);
+  const [testOnlyIncorrectAnswers, setTestOnlyIncorrectAnswers] = useState(
+    false
+  );
   const correctAnswer =
     answerHistory.length > 0
       ? answerHistory[answerHistory.length - 1].name ===
         answerHistory[answerHistory.length - 1].correctAnswer.name
       : null;
-  const getRandomCountries = () => {
+  const getRandomCountries = (bool = true) => {
     const tempArr = [];
-    while (tempArr.length < 4) {
-      const randomCountry =
-        countryData[Math.floor(Math.random() * countryData.length)];
-      if (
-        tempArr.indexOf(randomCountry) === -1 &&
-        randomCountry.capital &&
-        randomCountry.flag
-      ) {
-        tempArr.push(randomCountry);
+    let tempNum = 4;
+    if (bool) {
+      if (countryData.length < 4) {
+        tempNum = countryData.length;
+      }
+      while (tempArr.length < tempNum) {
+        const randomCountry =
+          countryData[Math.floor(Math.random() * countryData.length)];
+        if (
+          tempArr.indexOf(randomCountry) === -1 &&
+          randomCountry.capital &&
+          randomCountry.flag
+        ) {
+          tempArr.push(randomCountry);
+        }
+      }
+    } else {
+      if (incorrectAnswersArr.length < 4) {
+        tempNum = incorrectAnswersArr.length;
+      }
+      while (tempArr.length < tempNum) {
+        const randomCountry =
+          incorrectAnswersArr[
+            Math.floor(Math.random() * incorrectAnswersArr.length)
+          ];
+        if (
+          tempArr.indexOf(randomCountry) === -1 &&
+          randomCountry.capital &&
+          randomCountry.flag
+        ) {
+          tempArr.push(randomCountry);
+        }
       }
     }
 
-    setCurrentCountry(tempArr[Math.floor(Math.random() * 4)]);
+    setCurrentCountry(tempArr[Math.floor(Math.random() * tempNum)]);
     setRandomCountries(tempArr);
   };
   const submitAnswer = (answer) => {
@@ -61,14 +89,34 @@ const Test = ({
       setCorrectAnswers(correctAnswers + 1);
     } else {
       setIncorrectAnswers(incorrectAnswers + 1);
+      if (
+        !incorrectAnswersArr.some(
+          (country) => country.name === currentCountry.name
+        )
+      ) {
+        setIncorrectAnswersArr([...incorrectAnswersArr, currentCountry]);
+      }
     }
     setQuizSearchText("");
     setQuizSearchOptions([]);
-    getRandomCountries();
+    getRandomCountries(!testOnlyIncorrectAnswers);
   };
-  console.log(currentCountry);
   return (
     <>
+      <div>
+        {incorrectAnswersArr.length > 0 && (
+          <StyledButton
+            onClick={() => setShowIncorrectAnswers(!showIncorrectAnswers)}
+          >
+            {showIncorrectAnswers
+              ? "Hide incorrect answers"
+              : "Show incorrect answers"}
+          </StyledButton>
+        )}
+        {showIncorrectAnswers &&
+          incorrectAnswersArr.length > 0 &&
+          incorrectAnswersArr.map((e) => `Name: ${e.name}`)}
+      </div>
       <FlexSpan narrowFlexDirection={"row"} maxWidth={"10in"}>
         {answerHistory.length > 0 && (
           <StyledH3>Correct answers: {correctAnswers}</StyledH3>
@@ -128,6 +176,10 @@ const Test = ({
                 onClick={() => {
                   getRandomCountries();
                   setAnswerHistory([]);
+                  setIncorrectAnswersArr([]);
+                  setTestOnlyIncorrectAnswers(false);
+                  setCorrectAnswers(0);
+                  setIncorrectAnswers(0);
                 }}
               >
                 {answerHistory.length === 0 ? "Test countries!" : "Reset"}
@@ -142,6 +194,23 @@ const Test = ({
                   multipleChoice ? "typing" : "multiple choice"
                 } mode`}
               </StyledButton>
+              {incorrectAnswersArr.length > 0 && (
+                <StyledButton
+                  onClick={() => {
+                    if (testOnlyIncorrectAnswers === false) {
+                      setTestOnlyIncorrectAnswers(true);
+                      getRandomCountries(false);
+                    } else {
+                      setTestOnlyIncorrectAnswers(false);
+                      getRandomCountries(true);
+                    }
+                  }}
+                >
+                  {testOnlyIncorrectAnswers
+                    ? "Test all countries"
+                    : "Practise incorrect answers"}
+                </StyledButton>
+              )}
             </FlexDiv>
             {currentTestMode === testModes[0] && name !== null && (
               <StyledSpan>
