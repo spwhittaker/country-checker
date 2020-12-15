@@ -1,17 +1,24 @@
 import { QuizImg } from "./styling/Imgs";
 import React, { useState } from "react";
+import { useLocalStorage } from "../useLocalStorage";
+import { CardSearchContainer } from "./styling/Containers";
+import List from "./List";
+import CountryCard from "./CountryCard";
 import QuizSearch from "./QuizSearch";
 import { StyledButton, QuizSearchResultButton } from "./styling/Buttons";
+
 import { StyledSpan, FlexSpan } from "./styling/Spans";
 import { FlexDiv } from "./styling/Divs";
-import { StyledH3, StyledH6 } from "./styling/Headings";
+import { StyledH1, StyledH3, StyledH6 } from "./styling/Headings";
 import { StyledImgContainer } from "./styling/Containers";
 import { StyledP } from "./styling/Ps";
+import { ModalBg, ModalContent } from "./styling/Modal";
 
 const Test = ({
   countryData,
   currentCountry,
   setCurrentCountry,
+  accentColors,
   currentCountry: { name, capital, flag, otherNames },
 }) => {
   const testModes = [
@@ -19,8 +26,11 @@ const Test = ({
     "Guess the Country from the Flag",
     "Guess the Country from the Capital",
   ];
-  const [correctAnswers, setCorrectAnswers] = useState(0);
-  const [incorrectAnswers, setIncorrectAnswers] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useLocalStorage(
+    "correctAnswers",
+    0
+  );
+
   const [randomCountries, setRandomCountries] = useState([]);
   const [multipleChoice, setMultipleChoice] = useState(true);
   const [currentTestMode, setCurrentTestMode] = useState(
@@ -29,11 +39,17 @@ const Test = ({
   const [answerHistory, setAnswerHistory] = useState([]);
   const [quizSearchText, setQuizSearchText] = useState("");
   const [quizSearchOptions, setQuizSearchOptions] = useState([]);
-  const [incorrectAnswersArr, setIncorrectAnswersArr] = useState([]);
+  //const [incorrectAnswersArr, setIncorrectAnswersArr] = useState([]);
+  const [incorrectAnswersArr, setIncorrectAnswersArr] = useLocalStorage(
+    "incorrectAnswers",
+    []
+  );
+
   const [showIncorrectAnswers, setShowIncorrectAnswers] = useState(false);
   const [testOnlyIncorrectAnswers, setTestOnlyIncorrectAnswers] = useState(
     false
   );
+
   const correctAnswer =
     answerHistory.length > 0
       ? answerHistory[answerHistory.length - 1].name ===
@@ -88,7 +104,7 @@ const Test = ({
     if (answer === currentCountry) {
       setCorrectAnswers(correctAnswers + 1);
     } else {
-      setIncorrectAnswers(incorrectAnswers + 1);
+      //setIncorrectAnswers(incorrectAnswers + 1);
       if (
         !incorrectAnswersArr.some(
           (country) => country.name === currentCountry.name
@@ -104,22 +120,40 @@ const Test = ({
   return (
     <>
       <div>
-        {incorrectAnswersArr.length > 0 && (
-          <StyledButton
-            onClick={() => setShowIncorrectAnswers(!showIncorrectAnswers)}
-          >
-            {showIncorrectAnswers
-              ? "Hide incorrect answers"
-              : "Show incorrect answers"}
-          </StyledButton>
+        {showIncorrectAnswers && incorrectAnswersArr.length > 0 && (
+          <ModalBg>
+            <ModalContent>
+              <StyledH1>Incorrect Answers</StyledH1>
+              <CardSearchContainer>
+                {currentCountry.name !== null && (
+                  <CountryCard
+                    currentCountry={currentCountry}
+                    accentColors={accentColors}
+                  />
+                )}
+              </CardSearchContainer>
+              <StyledButton
+                margin="0.5rem auto 0.1rem"
+                onClick={() => {
+                  getRandomCountries(!testOnlyIncorrectAnswers);
+                  setShowIncorrectAnswers(false);
+                }}
+              >
+                Close incorrect answers
+              </StyledButton>
+              <List
+                names={incorrectAnswersArr.map((country) => country.name)}
+                setCurrentCountry={setCurrentCountry}
+                countryData={incorrectAnswersArr}
+                currentCountry={currentCountry}
+              />
+            </ModalContent>
+          </ModalBg>
         )}
-        {showIncorrectAnswers &&
-          incorrectAnswersArr.length > 0 &&
-          incorrectAnswersArr.map((e) => `Name: ${e.name}`)}
       </div>
       <FlexSpan narrowFlexDirection={"row"} maxWidth={"10in"}>
-        {answerHistory.length > 0 && (
-          <StyledH3>Correct answers: {correctAnswers}</StyledH3>
+        {(answerHistory.length > 0 || incorrectAnswersArr.length > 0) && (
+          <StyledH3>Correct answers: {correctAnswers || 0}</StyledH3>
         )}
         {countryData.length > 0 && (
           <StyledSpan marginProps="1rem">
@@ -146,8 +180,22 @@ const Test = ({
             </StyledButton>
           </StyledSpan>
         )}
-        {answerHistory.length > 0 && (
-          <StyledH3>Incorrect answers: {incorrectAnswers}</StyledH3>
+        {(answerHistory.length > 0 || incorrectAnswersArr.length > 0) && (
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <StyledH3>Incorrect answers: {incorrectAnswersArr.length}</StyledH3>
+            {incorrectAnswersArr.length > 0 && !showIncorrectAnswers && (
+              <StyledButton
+                onClick={() => {
+                  setCurrentCountry(incorrectAnswersArr[0]);
+                  setShowIncorrectAnswers(true);
+                }}
+              >
+                {showIncorrectAnswers
+                  ? "Hide incorrect answers"
+                  : "Show incorrect answers"}
+              </StyledButton>
+            )}
+          </div>
         )}
       </FlexSpan>
       {countryData.length === 0 && (
@@ -169,20 +217,33 @@ const Test = ({
               narrowFlexDirection={"row"}
               wideFlexDirection={"column"}
             >
+              {(answerHistory.length > 0 ||
+                correctAnswers > 0 ||
+                incorrectAnswersArr.length > 0) && (
+                <StyledButton
+                  minHeight={"40px"}
+                  narrowMinHeight={"55px"}
+                  narrowMaxWidth={"120px"}
+                  onClick={() => {
+                    getRandomCountries();
+                    setAnswerHistory([]);
+                    setIncorrectAnswersArr([]);
+                    setTestOnlyIncorrectAnswers(false);
+                    setCorrectAnswers(0);
+                  }}
+                >
+                  Reset
+                </StyledButton>
+              )}
               <StyledButton
                 minHeight={"40px"}
                 narrowMinHeight={"55px"}
                 narrowMaxWidth={"120px"}
                 onClick={() => {
                   getRandomCountries();
-                  setAnswerHistory([]);
-                  setIncorrectAnswersArr([]);
-                  setTestOnlyIncorrectAnswers(false);
-                  setCorrectAnswers(0);
-                  setIncorrectAnswers(0);
                 }}
               >
-                {answerHistory.length === 0 ? "Test countries!" : "Reset"}
+                Test countries!
               </StyledButton>
               <StyledButton
                 minHeight={"40px"}
@@ -196,6 +257,9 @@ const Test = ({
               </StyledButton>
               {incorrectAnswersArr.length > 0 && (
                 <StyledButton
+                  minHeight={"40px"}
+                  narrowMinHeight={"55px"}
+                  narrowMaxWidth={"120px"}
                   onClick={() => {
                     if (testOnlyIncorrectAnswers === false) {
                       setTestOnlyIncorrectAnswers(true);

@@ -146,6 +146,7 @@ function App() {
           <Route exact path="/test">
             <Test
               countryData={countryData}
+              accentColors={accentColors}
               currentCountry={currentCountry}
               setCurrentCountry={setCurrentCountry}
             />

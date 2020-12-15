@@ -20,8 +20,13 @@ export const StyledH6 = styled.h6`
 `;
 
 export const StyledH1 = styled.h1`
-  font-size: 20px;
   flex-shrink: 1;
+  font-size: 2rem;
+  color: rgba(50, 50, 50, 1);
+  flex-grow: 1;
+  font-family: "Domine", sans-serif;
+  align-self: flex-start;
+  margin: 0.2rem auto 0.5rem;
 `;
 
 export const StyledH5 = styled.h5`

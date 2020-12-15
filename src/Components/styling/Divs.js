@@ -136,9 +136,25 @@ export const StyledCard = styled.div`
     }
   }
   > div {
-    margin-top: 1rem;
+    margin: 1rem 0.5rem;
     padding: 0.5rem;
     margin: auto;
+    width: 40%;
+    max-width: 5in;
+    @media screen and (max-width: 700px) {
+      width: 90%;
+      max-width: 100%;
+    }
+    @media screen and (min-aspect-ratio: 7
+  /9) {
+      width: 90%;
+      max-width: 80%;
+    }
+    @media screen and (min-width: 800px) {
+      width: 40%;
+      max-width: 4in;
+    }
+
     border: ${(props) => props.accentColors.DarkVibrant || "white"} 1px solid;
     background-color: ${(props) => props.accentColors.LightestMuted || "white"};
   }
@@ -160,7 +176,8 @@ export const StyledCard = styled.div`
   }
 
   div {
-    margin: 0.15rem auto;
+    margin: 0.15rem;
+    min-width: auto;
     div {
       display: flex;
       flex-wrap: wrap;
@@ -173,16 +190,16 @@ export const StyledCard = styled.div`
       padding: 0.5rem 0.4rem;
       font-size: 1rem;
       flex: 1;
-      width: 25%;
-      margin: 0.2rem 0;
+      min-width: 25%;
+      margin: 0 0;
       font-weight: 900;
       @media screen and (max-width: 500px) {
         font-size: 0.8rem;
+        min-width: 40%;
       }
       @media screen and (min-aspect-ratio: 7
   /9) {
         font-size: 0.7rem;
-        margin: 0.15rem;
       }
     }
   }
