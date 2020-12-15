@@ -39,7 +39,6 @@ const Test = ({
   const [answerHistory, setAnswerHistory] = useState([]);
   const [quizSearchText, setQuizSearchText] = useState("");
   const [quizSearchOptions, setQuizSearchOptions] = useState([]);
-  //const [incorrectAnswersArr, setIncorrectAnswersArr] = useState([]);
   const [incorrectAnswersArr, setIncorrectAnswersArr] = useLocalStorage(
     "incorrectAnswers",
     []
@@ -104,7 +103,6 @@ const Test = ({
     if (answer === currentCountry) {
       setCorrectAnswers(correctAnswers + 1);
     } else {
-      //setIncorrectAnswers(incorrectAnswers + 1);
       if (
         !incorrectAnswersArr.some(
           (country) => country.name === currentCountry.name
@@ -225,11 +223,14 @@ const Test = ({
                   narrowMinHeight={"55px"}
                   narrowMaxWidth={"120px"}
                   onClick={() => {
-                    getRandomCountries();
-                    setAnswerHistory([]);
-                    setIncorrectAnswersArr([]);
-                    setTestOnlyIncorrectAnswers(false);
-                    setCorrectAnswers(0);
+                    const confirmation = window.confirm("Are you sure?");
+                    if (confirmation) {
+                      getRandomCountries();
+                      setAnswerHistory([]);
+                      setIncorrectAnswersArr([]);
+                      setTestOnlyIncorrectAnswers(false);
+                      setCorrectAnswers(0);
+                    }
                   }}
                 >
                   Reset
