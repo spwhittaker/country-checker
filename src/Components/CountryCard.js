@@ -11,7 +11,11 @@ export default function CountryCard({
       <StyledCard accentColors={accentColors}>
         <h1>{name}</h1>
         {capital && <h3>Capital: {capital}</h3>}
-        <StyledCardImg src={flag} alt={`${name} flag`} />
+        <StyledCardImg
+          accentColors={accentColors}
+          src={flag}
+          alt={`${name} flag`}
+        />
         {otherNames.length > 0 && (
           <div>
             <h4>Other names</h4>

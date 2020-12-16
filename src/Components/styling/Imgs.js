@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const QuizImg = styled.img`
   display: inline-block;
-  
+
   max-height: 100%;
   max-width: 100%;
   margin: 0 auto;
@@ -17,4 +17,6 @@ export const StyledCardImg = styled.img`
   max-height: 15vh;
   height: "auto";
   overflow: hidden;
+  border: solid 2px ${(props) => props.accentColors.DarkerMuted || "#505050"};
+  border-radius: 3px;
 `;

@@ -1,18 +1,15 @@
 import { QuizImg } from "./styling/Imgs";
 import React, { useState } from "react";
 import { useLocalStorage } from "../useLocalStorage";
-import { CardSearchContainer } from "./styling/Containers";
-import List from "./List";
-import CountryCard from "./CountryCard";
 import QuizSearch from "./QuizSearch";
 import { StyledButton, QuizSearchResultButton } from "./styling/Buttons";
-
 import { StyledSpan, FlexSpan } from "./styling/Spans";
 import { FlexDiv } from "./styling/Divs";
-import { StyledH1, StyledH3, StyledH6 } from "./styling/Headings";
+import { StyledH3, StyledH6 } from "./styling/Headings";
 import { StyledImgContainer } from "./styling/Containers";
 import { StyledP } from "./styling/Ps";
-import { ModalBg, ModalContent } from "./styling/Modal";
+
+import Modal from "./Modal";
 
 const Test = ({
   countryData,
@@ -117,38 +114,19 @@ const Test = ({
   };
   return (
     <>
-      <div>
-        {showIncorrectAnswers && incorrectAnswersArr.length > 0 && (
-          <ModalBg>
-            <ModalContent>
-              <StyledH1>Incorrect Answers</StyledH1>
-              <CardSearchContainer>
-                {currentCountry.name !== null && (
-                  <CountryCard
-                    currentCountry={currentCountry}
-                    accentColors={accentColors}
-                  />
-                )}
-              </CardSearchContainer>
-              <StyledButton
-                margin="0.5rem auto 0.1rem"
-                onClick={() => {
-                  getRandomCountries(!testOnlyIncorrectAnswers);
-                  setShowIncorrectAnswers(false);
-                }}
-              >
-                Close incorrect answers
-              </StyledButton>
-              <List
-                names={incorrectAnswersArr.map((country) => country.name)}
-                setCurrentCountry={setCurrentCountry}
-                countryData={incorrectAnswersArr}
-                currentCountry={currentCountry}
-              />
-            </ModalContent>
-          </ModalBg>
-        )}
-      </div>
+      {showIncorrectAnswers && incorrectAnswersArr.length > 0 && (
+        <Modal
+          currentCountry={currentCountry}
+          accentColors={accentColors}
+          getRandomCountries={getRandomCountries}
+          testOnlyIncorrectAnswers={testOnlyIncorrectAnswers}
+          setShowIncorrectAnswers={setShowIncorrectAnswers}
+          incorrectAnswersArr={incorrectAnswersArr}
+          setCurrentCountry={setCurrentCountry}
+          setIncorrectAnswersArr={setIncorrectAnswersArr}
+        />
+      )}
+
       <FlexSpan narrowFlexDirection={"row"} maxWidth={"10in"}>
         {(answerHistory.length > 0 || incorrectAnswersArr.length > 0) && (
           <StyledH3>Correct answers: {correctAnswers || 0}</StyledH3>
@@ -323,6 +301,7 @@ const Test = ({
                     narrowMinHeight={"70px"}
                     narrowMinWidth={"40%"}
                     maxWidth={"220px"}
+                    key={country.name}
                     onClick={() => submitAnswer(country)}
                   >
                     {currentTestMode === testModes[0]
