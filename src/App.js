@@ -118,10 +118,10 @@ function App() {
       <div className="App">
         <StyledA
           href="/"
-          alt="Country Checker Home"
+          alt="Country Tester Home"
           styles={{ textDecoration: "none" }}
         >
-          <Title>Country Checker</Title>
+          <Title>Country Tester</Title>
         </StyledA>
         <Nav></Nav>
         <Switch>

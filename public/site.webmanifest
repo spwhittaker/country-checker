@@ -1,6 +1,6 @@
 {
-  "name": "Country Checker",
-  "short_name": "Country Checker",
+  "name": "Country Tester",
+  "short_name": "Country Tester",
   "icons": [
     {
       "src": "%PUBLIC_URL%/android-chrome-192x192.png",

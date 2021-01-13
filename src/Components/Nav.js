@@ -14,7 +14,7 @@ const Nav = () => {
     <StyledNav>
       <StyledA
         href="/"
-        alt="Country Checker Home"
+        alt="Country Tester Home"
         styles={{ textDecoration: "none" }}
       >
         <StyledH5>Home</StyledH5>
