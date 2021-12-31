@@ -19,6 +19,7 @@ function App() {
   const [countryNames, setCountryNames] = useState([]);
   const [countryData, setCountryData] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const [loading, setLoading] = useState(false);
   const [currentCountry, setCurrentCountry] = useState({
     name: null,
     capital: null,
@@ -43,6 +44,7 @@ function App() {
 
   useEffect(() => {
     let ignore = false;
+    setLoading(true);
 
     async function fetchData() {
       if (!ignore) {
@@ -50,19 +52,24 @@ function App() {
         if (searchText === "") {
           try {
             result = await defaultSearch.get("/");
+            setLoading(false);
           } catch (err) {
             console.error(err);
+            setLoading(false);
           }
         } else {
           try {
             result = await nameSearch.get(`/${searchText}`);
+            setLoading(false);
           } catch (err) {
             console.error(err);
+            setLoading(false);
           }
         }
+
         const names = result
           ? result.data
-              .map((country) => country.name)
+              .map((country) => country.name.common)
               .sort((a, b) => {
                 const textA = a.toUpperCase();
                 const textB = b.toUpperCase();
@@ -71,8 +78,23 @@ function App() {
           : [];
         const countries = result
           ? result.data
-              .map(({ name, capital, flag, altSpellings }) => {
-                return { name, capital, flag, otherNames: [...altSpellings] };
+              .map(({ name, capital, flags, altSpellings }) => {
+                const capitalCity = capital ? capital.join(", ") : null;
+                const allNames = [name.official, ...altSpellings];
+
+                if (name.nativeName) {
+                  Object.values(name.nativeName).forEach((e) =>
+                    allNames.push(e.official, e.common)
+                  );
+                }
+                const allUniqueNames = Array.from(new Set(allNames));
+
+                return {
+                  name: name.common,
+                  capital: capitalCity,
+                  flag: flags.png,
+                  otherNames: allUniqueNames,
+                };
               })
               .sort((a, b) => {
                 const textA = a.name.toUpperCase();
@@ -114,18 +136,18 @@ function App() {
   }, [currentCountry, searchText]);
 
   return (
-    <BrowserRouter className="browser-router">
-      <div className="App">
+    <BrowserRouter className='browser-router'>
+      <div className='App'>
         <StyledA
-          href="/"
-          alt="Country Tester Home"
+          href='/'
+          alt='Country Tester Home'
           styles={{ textDecoration: "none" }}
         >
           <Title>Country Tester</Title>
         </StyledA>
         <Nav></Nav>
         <Switch>
-          <Route exact path="/">
+          <Route exact path='/'>
             <CardSearchContainer>
               {currentCountry.name !== null && (
                 <CountryCard
@@ -141,9 +163,10 @@ function App() {
               setCurrentCountry={setCurrentCountry}
               countryData={countryData}
               currentCountry={currentCountry}
+              loading={loading}
             />
           </Route>
-          <Route exact path="/test">
+          <Route exact path='/test'>
             <Test
               countryData={countryData}
               accentColors={accentColors}
@@ -151,10 +174,10 @@ function App() {
               setCurrentCountry={setCurrentCountry}
             />
           </Route>
-          <Route path="/">
+          <Route path='/'>
             <StyledH6>Page not found. </StyledH6>
             <StyledButton>
-              <a href="/" alt="Home">
+              <a href='/' alt='Home'>
                 Return to homepage
               </a>
             </StyledButton>

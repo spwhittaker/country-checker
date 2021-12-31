@@ -10,9 +10,14 @@ export default function List({
   countryData,
   currentCountry,
   setAccentColors,
+  loading,
 }) {
   return names.length === 0 ? (
-    <StyledH6>Nothing to see here, please try another search.</StyledH6>
+    <StyledH6>
+      {loading
+        ? "Loading..."
+        : "Nothing to see here, please try another search."}
+    </StyledH6>
   ) : (
     <StyledCountriesList>
       {names.map((name, index) => (
