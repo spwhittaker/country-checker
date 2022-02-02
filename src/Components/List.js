@@ -13,7 +13,7 @@ export default function List({
   loading,
   setColoursLoading,
 }) {
-  return names.length === 0 ? (
+  return countryData.length === 0 ? (
     <StyledH6>
       {loading
         ? "Loading..."
@@ -21,19 +21,19 @@ export default function List({
     </StyledH6>
   ) : (
     <StyledCountriesList>
-      {names.map((name, index) => (
+      {countryData.map((country, index) => (
         <CountryDiv key={index}>
-          <StyledP>{name}</StyledP>
+          <StyledP>{country.name}</StyledP>
           <StyledButton
             narrowMaxHeight={"30px"}
             narrowMinHeight={"30px"}
             onClick={(e) => {
               e.preventDefault();
-              const newCountry = countryData.filter(
-                (country) => country.name === name
-              );
-              setColoursLoading(true);
-              setCurrentCountry(newCountry[0]);
+
+              if (currentCountry.name !== country.name) {
+                setColoursLoading(true);
+                setCurrentCountry(country);
+              }
             }}
           >
             More info

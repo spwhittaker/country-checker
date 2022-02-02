@@ -5,7 +5,8 @@ export const defaultSearch = axios.create({
   responseType: "json",
 });
 
-export const nameSearch = axios.create({
+/* export const nameSearch = axios.create({
   baseURL: "https://restcountries.com/v3.1/name/",
   responseType: "json",
 });
+ */
