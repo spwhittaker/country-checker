@@ -11,6 +11,7 @@ export default function List({
   currentCountry,
   setAccentColors,
   loading,
+  setColoursLoading,
 }) {
   return names.length === 0 ? (
     <StyledH6>
@@ -31,7 +32,7 @@ export default function List({
               const newCountry = countryData.filter(
                 (country) => country.name === name
               );
-
+              setColoursLoading(true);
               setCurrentCountry(newCountry[0]);
             }}
           >

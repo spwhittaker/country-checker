@@ -17,6 +17,8 @@ const Test = ({
   setCurrentCountry,
   accentColors,
   currentCountry: { name, capital, flag, otherNames },
+  coloursLoading,
+  setColoursLoading,
 }) => {
   const testModes = [
     "Guess the Capital from the Country",
@@ -42,9 +44,8 @@ const Test = ({
   );
 
   const [showIncorrectAnswers, setShowIncorrectAnswers] = useState(false);
-  const [testOnlyIncorrectAnswers, setTestOnlyIncorrectAnswers] = useState(
-    false
-  );
+  const [testOnlyIncorrectAnswers, setTestOnlyIncorrectAnswers] =
+    useState(false);
 
   const correctAnswer =
     answerHistory.length > 0
@@ -87,7 +88,7 @@ const Test = ({
         }
       }
     }
-
+    setColoursLoading(true);
     setCurrentCountry(tempArr[Math.floor(Math.random() * tempNum)]);
     setRandomCountries(tempArr);
   };
@@ -124,6 +125,7 @@ const Test = ({
           incorrectAnswersArr={incorrectAnswersArr}
           setCurrentCountry={setCurrentCountry}
           setIncorrectAnswersArr={setIncorrectAnswersArr}
+          coloursLoading={coloursLoading}
         />
       )}
 
@@ -132,7 +134,7 @@ const Test = ({
           <StyledH3>Correct answers: {correctAnswers || 0}</StyledH3>
         )}
         {countryData.length > 0 && (
-          <StyledSpan marginProps="1rem">
+          <StyledSpan marginProps='1rem'>
             <StyledButton
               narrowMinHeight={"60px"}
               narrowMinWidth={"50px"}
@@ -162,6 +164,7 @@ const Test = ({
             {incorrectAnswersArr.length > 0 && !showIncorrectAnswers && (
               <StyledButton
                 onClick={() => {
+                  setColoursLoading = { setColoursLoading };
                   setCurrentCountry(incorrectAnswersArr[0]);
                   setShowIncorrectAnswers(true);
                 }}
@@ -181,7 +184,7 @@ const Test = ({
         <>
           <StyledP flexGrow={0}>Test mode selected: {currentTestMode}</StyledP>
           <StyledSpan
-            marginProps="1rem auto"
+            marginProps='1rem auto'
             narrowFlexDirection={"column"}
             width={"70%"}
             narrowMinWidth={"95vw"}
@@ -197,8 +200,8 @@ const Test = ({
                 correctAnswers > 0 ||
                 incorrectAnswersArr.length > 0) && (
                 <StyledButton
-                  minHeight={"40px"}
-                  narrowMinHeight={"55px"}
+                  minHeight={"45px"}
+                  narrowMinHeight={"60px"}
                   narrowMaxWidth={"120px"}
                   onClick={() => {
                     const confirmation = window.confirm("Are you sure?");
@@ -215,8 +218,8 @@ const Test = ({
                 </StyledButton>
               )}
               <StyledButton
-                minHeight={"40px"}
-                narrowMinHeight={"55px"}
+                minHeight={"45px"}
+                narrowMinHeight={"60px"}
                 narrowMaxWidth={"120px"}
                 onClick={() => {
                   getRandomCountries();
@@ -225,8 +228,8 @@ const Test = ({
                 Test countries!
               </StyledButton>
               <StyledButton
-                minHeight={"40px"}
-                narrowMinHeight={"55px"}
+                minHeight={"45px"}
+                narrowMinHeight={"60px"}
                 narrowMaxWidth={"120px"}
                 onClick={(prevProps) => setMultipleChoice(!multipleChoice)}
               >
@@ -236,8 +239,8 @@ const Test = ({
               </StyledButton>
               {incorrectAnswersArr.length > 0 && (
                 <StyledButton
-                  minHeight={"40px"}
-                  narrowMinHeight={"55px"}
+                  minHeight={"45px"}
+                  narrowMinHeight={"60px"}
                   narrowMaxWidth={"120px"}
                   onClick={() => {
                     if (testOnlyIncorrectAnswers === false) {
@@ -272,7 +275,13 @@ const Test = ({
               </StyledSpan>
             )}
             {correctAnswer !== null && answerHistory.length > 0 ? (
-              <StyledH3 h3Width={"100%"}>{`You selected ${
+              <StyledH3
+                h3Width={"100%"}
+                h3Padding='0.5rem'
+                h3Font='0.7rem'
+                h3MinHeight='35px'
+                h3FontFamily='Mulish'
+              >{`You selected ${
                 currentTestMode === testModes[0]
                   ? answerHistory[answerHistory.length - 1].capital
                   : answerHistory[answerHistory.length - 1].name
@@ -288,7 +297,12 @@ const Test = ({
                     }.`
               }`}</StyledH3>
             ) : (
-              <StyledH3 h3Width={"100%"} />
+              <StyledH3
+                h3Width={"100%"}
+                h3Padding='0.5rem'
+                h3Font='0.6rem'
+                h3MinHeight='30px'
+              />
             )}
           </StyledSpan>
           {randomCountries.length > 0 &&

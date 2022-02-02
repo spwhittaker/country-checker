@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const StyledP = styled.p`
-  color: black;
+  color: ${(props) => props.theme.primaryBlack};
   flex-grow: ${(props) => props.flexGrow || "1"};
   text-align: center;
   font-size: 1.1rem;

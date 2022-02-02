@@ -1,11 +1,10 @@
 import styled from "styled-components";
 export const StyledImgContainer = styled.div`
-  background: rgba(256, 256, 256, 0.3);
+  background: ${(props) => props.theme.lightTranslucent};
 
-  
   width: 200px;
   height: 200px;
-  line-height: 200px;  
+  line-height: 200px;
   text-align: center;
   margin: auto;
   padding: 0.5rem;
@@ -22,6 +21,7 @@ export const CardSearchContainer = styled.div`
   display: block;
   flex-direction: column;
   justify-content: center;
-  background: rgba(183, 217, 227, 0.75);
+  background: ${(props) => props.theme.quaternaryBackground};
+
   padding: 1rem;
 `;

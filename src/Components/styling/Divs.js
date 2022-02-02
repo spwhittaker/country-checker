@@ -215,7 +215,7 @@ export const StyledSearch = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  background: rgba(80, 80, 80, 0.8);
+  background: ${(props) => props.theme.darkTranslucent};
   margin: ${(props) => props.marginProps || "0 -1rem -1rem -1rem"};
   p {
     color: white;
@@ -246,4 +246,8 @@ export const FlexDiv = styled.div`
     justify-content: center;
     align-items: center;
   }
+`;
+
+export const OtherNamesContainer = styled.div`
+  margin: 0 auto;
 `;

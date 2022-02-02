@@ -12,7 +12,7 @@ const StyledFooter = styled.footer`
 
   p a {
     text-decoration: none;
-    color: #332c23;
+    color: ${(props) => props.theme.secondaryBackground};
     font-size: 100%;
   }
 `;
@@ -30,26 +30,26 @@ const Footer = () => {
   return (
     <StyledFooter>
       <p>
-        <a href="#top" alt="Top of the Page">
+        <a href='#top' alt='Top of the Page'>
           Go to Top
         </a>
       </p>
       <p>
         <a
-          href="https://github.com/spwhittaker/"
-          target="_blank"
-          rel="noopener noreferrer"
-          alt="Github link for Stephen Whittaker"
+          href='https://github.com/spwhittaker/'
+          target='_blank'
+          rel='noopener noreferrer'
+          alt='Github link for Stephen Whittaker'
         >
           {copyrightString}
         </a>
       </p>
       <p>
         <a
-          href="mailto:stephenwhittaker23@gmail.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          alt="Get in touch"
+          href='mailto:stephenwhittaker23@gmail.com'
+          target='_blank'
+          rel='noopener noreferrer'
+          alt='Get in touch'
         >
           Contact
         </a>

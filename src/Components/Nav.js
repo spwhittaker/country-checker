@@ -6,24 +6,16 @@ import { StyledH5 } from "./styling/Headings";
 const StyledNav = styled.nav`
   display: flex;
   justify-content: space-around;
-  background: rgb(80, 80, 80);
+  background: ${(props) => props.theme.secondaryBackground};
 `;
 
 const Nav = () => {
   return (
     <StyledNav>
-      <StyledA
-        href="/"
-        alt="Country Tester Home"
-        styles={{ textDecoration: "none" }}
-      >
+      <StyledA href='/' alt='Country Tester Home'>
         <StyledH5>Home</StyledH5>
       </StyledA>
-      <StyledA
-        href="/test"
-        alt="Country Tester"
-        styles={{ textDecoration: "none" }}
-      >
+      <StyledA href='/test' alt='Country Tester'>
         <StyledH5>Test your knowledge</StyledH5>
       </StyledA>
     </StyledNav>

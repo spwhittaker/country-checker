@@ -1,12 +1,13 @@
 import React from "react";
-import { StyledCard } from "./styling/Divs";
+import { StyledCard, OtherNamesContainer } from "./styling/Divs";
 import { StyledCardImg } from "./styling/Imgs";
 
 export default function CountryCard({
   currentCountry: { name, capital, flag, otherNames },
   accentColors,
+  coloursLoading,
 }) {
-  if (name !== null) {
+  if (name !== null && !coloursLoading) {
     return (
       <StyledCard accentColors={accentColors}>
         <h1>{name}</h1>
@@ -17,17 +18,17 @@ export default function CountryCard({
           alt={`${name} flag`}
         />
         {otherNames.length > 0 && (
-          <div>
+          <OtherNamesContainer style={{ margin: "5px auto" }}>
             <h4>Other names</h4>
             <div>
               {otherNames.map((altName, index) => {
                 return <p key={index}>{altName}</p>;
               })}
             </div>
-          </div>
+          </OtherNamesContainer>
         )}
       </StyledCard>
     );
   }
-  return <></>;
+  return null;
 }

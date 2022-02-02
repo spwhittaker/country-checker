@@ -4,17 +4,18 @@ export const StyledH3 = styled.h3`
   display: inline-flex;
   justify-content: center;
   align-items: start;
-  padding: 1rem;
-  margin: auto;
+  font-family: ${(props) => props.h3FontFamily || null};
+  padding: ${(props) => props.h3Padding || "1rem"};
   max-width: ${(props) => props.h3Width || "25vw"};
-  font-size: 1rem;
+  font-size: ${(props) => props.h3Font || "1rem"};
+  min-height: ${(props) => props.h3MinHeight || null};
   text-align: center;
 `;
 export const StyledH6 = styled.h6`
   font-size: 1.5rem;
-  color: rgba(56, 62, 235, 1);
+  color: ${(props) => props.theme.secondaryBlue};
   flex-grow: 1;
-  font-family: "Domine", sans-serif;
+  font-family: "Prompt", sans-serif;
   align-self: flex-start;
   margin: 1rem 1rem auto 1rem;
 `;
@@ -22,25 +23,26 @@ export const StyledH6 = styled.h6`
 export const StyledH1 = styled.h1`
   flex-shrink: 1;
   font-size: 2rem;
-  color: rgba(50, 50, 50, 1);
+  color: ${(props) => props.theme.primaryGrey};
   flex-grow: 1;
-  font-family: "Domine", sans-serif;
+  font-family: "Prompt", sans-serif;
   align-self: flex-start;
   margin: 0.2rem auto 0.5rem;
 `;
 
 export const StyledH5 = styled.h5`
   font-size: 1rem;
-  color: white;
+  color: ${(props) => props.theme.primaryWhite};
   display: inline-block;
   padding: 1rem;
-  font-family: "Domine", sans-serif;
+  font-family: "Prompt", sans-serif;
+  font-weight: bold;
   margin: 0 auto;
 
   vertical-align: center;
-  background: rgb(80, 80, 80);
+  background: ${(props) => props.theme.secondaryBackground};
   &:hover {
-    color: rgb(80, 80, 80);
-    background: white;
+    color: ${(props) => props.theme.secondaryBackground};
+    background: ${(props) => props.theme.primaryWhite};
   }
 `;

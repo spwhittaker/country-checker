@@ -7,6 +7,7 @@ export const StyledA = styled.a`
 `;
 export const Title = styled.h1`
   font-size: 3rem;
+
   @media screen and (max-width: 600px) {
     font-size: 1.5rem;
     padding: 0;
@@ -16,13 +17,13 @@ export const Title = styled.h1`
     padding: 0;
   }
   color: blue;
-  background-color: rgba(23, 34, 45, 0.9);
+  background-color: ${(props) => props.theme.tertiaryBackground};
   background-image: url("./world.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   opacity: 0.7;
-  font-family: "Domine", sans-serif;
+  font-family: "Trirong";
   font-size: 4rem;
   margin: 0;
   height: 5rem;

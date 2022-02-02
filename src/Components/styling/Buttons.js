@@ -1,10 +1,10 @@
 import styled from "styled-components";
 export const StyledButton = styled.a`
-  background-color: #4caf50;
-  border: 2px white solid;
-  color: white;
+  background-color: ${(props) => props.theme.primaryGreen};
+  border: 2px ${(props) => props.theme.primaryWhite} solid;
+  color: ${(props) => props.theme.primaryWhite};
   margin: ${(props) => props.margin || "auto"};
-  padding: 0.4rem;
+  padding: 0.5rem;
   min-width: ${(props) => props.minWidth || "100px"};
   max-width: ${(props) => props.maxWidth || "150px"};
   max-height: ${(props) => props.maxHeightProp || "80px"};
@@ -14,12 +14,14 @@ export const StyledButton = styled.a`
   display: inline-flex;
   justify-content: ${(props) => props.justifyContent || "center"};
   align-items: ${(props) => props.alignItems || "center"};
-  font-size: 1rem;
+  font-size: 0.8rem;
   box-sizing: border-box;
   flex: 1;
+  font-family: "Prompt", sans-serif;
+
   cursor: pointer;
   text-decoration: none;
-  color: white;
+  color: ${(props) => props.theme.primaryWhite};
   @media screen and (min-width: 601px) {
     min-height: ${(props) => props.minHeight || "30px"};
   }
@@ -36,7 +38,7 @@ export const StyledButton = styled.a`
 
   &:hover {
     box-sizing: border-box;
-    background-color: white;
+    background-color: ${(props) => props.theme.primaryWhite};
     border: 2px #4caf50 solid;
     color: #4caf50;
   }

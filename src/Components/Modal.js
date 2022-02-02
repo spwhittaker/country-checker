@@ -15,6 +15,7 @@ const Modal = ({
   incorrectAnswersArr,
   setIncorrectAnswersArr,
   setCurrentCountry,
+  coloursLoading,
 }) => {
   function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -34,12 +35,13 @@ const Modal = ({
             <CountryCard
               currentCountry={currentCountry}
               accentColors={accentColors}
+              coloursLoading={coloursLoading}
             />
           )}
         </CardSearchContainer>
         <FlexSpan narrowFlexDirection={"row"} maxWidth={"10in"}>
           <StyledButton
-            margin="0.5rem auto 0.1rem"
+            margin='0.5rem auto 0.1rem'
             onClick={() => {
               getRandomCountries(!testOnlyIncorrectAnswers);
               setShowIncorrectAnswers(false);
@@ -48,7 +50,7 @@ const Modal = ({
             Close incorrect answers
           </StyledButton>
           <StyledButton
-            margin="0.5rem auto 0.1rem"
+            margin='0.5rem auto 0.1rem'
             onClick={() => {
               setIncorrectAnswersArr(shuffleArray([...incorrectAnswersArr]));
             }}
@@ -56,7 +58,7 @@ const Modal = ({
             Shuffle countries
           </StyledButton>
           <StyledButton
-            margin="0.5rem auto 0.1rem"
+            margin='0.5rem auto 0.1rem'
             onClick={() => {
               const sortedArr = [...incorrectAnswersArr].sort((a, b) => {
                 const textA = a.name.toUpperCase();
