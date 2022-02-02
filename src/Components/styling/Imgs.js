@@ -11,10 +11,9 @@ export const QuizImg = styled.img`
 
 export const StyledCardImg = styled.img`
   display: ${(props) => props.displayProp || "block"};
-  padding: 0.3rem;
-  margin: 0.5rem auto;
-  max-width: 30vw;
-  max-height: 15vh;
+  padding: 5px;
+  margin: 15px;
+  max-width: 25vw;
   height: "auto";
   overflow: hidden;
   border: solid 2px ${(props) => props.accentColors.DarkerMuted || "#505050"};

@@ -82,9 +82,12 @@ export const StyledCountriesList = styled.div`
 `;
 
 export const StyledCard = styled.div`
+  padding: ${(props) => props.cardPadding || null};
   box-shadow: 0px 6px 5px 0px rgba(0, 0, 0, 0.75);
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: 500px) {
     flex-direction: row;
     flex-wrap: wrap;
@@ -136,11 +139,10 @@ export const StyledCard = styled.div`
     }
   }
   > div {
-    margin: 1rem 0.5rem;
     padding: 0.5rem;
-    margin: auto;
-    width: 40%;
-    max-width: 5in;
+
+    /*  width: 40%;
+    max-width: 5in; */
     @media screen and (max-width: 700px) {
       width: 90%;
       max-width: 100%;
@@ -176,8 +178,6 @@ export const StyledCard = styled.div`
   }
 
   div {
-    margin: 0.15rem;
-    min-width: auto;
     div {
       display: flex;
       flex-wrap: wrap;
@@ -249,5 +249,5 @@ export const FlexDiv = styled.div`
 `;
 
 export const OtherNamesContainer = styled.div`
-  margin: 0 auto;
+  margin: 0;
 `;

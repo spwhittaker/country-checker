@@ -9,17 +9,18 @@ import Search from "./Components/Search";
 import Test from "./Components/Test";
 import { CardSearchContainer } from "./Components/styling/Containers";
 import StyledFooter from "./Components/Footer";
-import { defaultSearch, nameSearch } from "./utils/API";
+import { defaultSearch } from "./utils/API";
 import * as Vibrant from "node-vibrant";
 import { lighten, darken } from "polished";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import GlobalStyle, { theme } from "../src/Components/styling/globalStyles";
 import { useLocalStorage } from "./useLocalStorage";
+import { deburr } from "lodash";
 
 function App() {
-  const [countryNames, setCountryNames] = useState([]);
-  const [countryData, setCountryData] = useState([]);
+  const [countryData, setCountryData] = useLocalStorage("countryData", []);
+  const [filteredCountryData, setFilteredCountryData] = useState([countryData]);
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
   const [currentCountry, setCurrentCountry] = useState({
@@ -31,10 +32,6 @@ function App() {
 
   const [accentColors, setAccentColors] = useState({});
   const [coloursLoading, setColoursLoading] = useState(false);
-  const [countryDataLocalStorage, setCountryDataLocalStorage] = useLocalStorage(
-    "countryData",
-    []
-  );
 
   const RGBToHex = ([r, g, b]) => {
     r = Math.round(r).toString(16);
@@ -51,56 +48,41 @@ function App() {
 
   useEffect(() => {
     let ignore = false;
-    setLoading(true);
-    setColoursLoading(true);
+    if (countryData.length === 0) {
+      setLoading(true);
+    }
+
     async function fetchData() {
       if (!ignore) {
         let result = null;
-        if (searchText === "") {
-          try {
-            result = await defaultSearch.get("/");
-            setLoading(false);
-          } catch (err) {
-            console.error(err);
-            setLoading(false);
-          }
-        } else {
-          try {
-            result = await nameSearch.get(`/${searchText}`);
-            setLoading(false);
-          } catch (err) {
-            console.error(err);
-            setLoading(false);
-          }
+
+        try {
+          result = await defaultSearch.get("/");
+          setLoading(false);
+        } catch (err) {
+          console.error(err);
+          setLoading(false);
         }
 
-        const names = result
-          ? result.data
-              .map((country) => country.name.common)
-              .sort((a, b) => {
-                const textA = a.toUpperCase();
-                const textB = b.toUpperCase();
-                return textA < textB ? -1 : textA > textB ? 1 : 0;
-              })
-          : [];
         const countries = result
           ? result.data
               .map(({ name, capital, flags, altSpellings }) => {
                 const capitalCity = capital ? capital.join(", ") : null;
-                const allNames = [name.official, ...altSpellings];
+                const alternativeNames = [name.official, ...altSpellings];
 
                 if (name.nativeName) {
                   Object.values(name.nativeName).forEach((e) =>
-                    allNames.push(e.official, e.common)
+                    alternativeNames.push(e.official, e.common)
                   );
                 }
-                const allUniqueNames = Array.from(new Set(allNames));
+                const allUniqueNames = Array.from(new Set(alternativeNames));
 
                 return {
                   name: name.common,
                   capital: capitalCity,
                   flag: flags.png,
                   otherNames: allUniqueNames,
+                  allNames: [name.official, ...allUniqueNames].join(","),
                 };
               })
               .sort((a, b) => {
@@ -110,16 +92,15 @@ function App() {
               })
           : [];
 
-        setCountryNames(names);
         setCountryData(countries);
       }
     }
-    fetchData(searchText);
+    fetchData();
 
     return () => {
       ignore = true;
     };
-  }, [currentCountry, searchText]);
+  }, [setCountryData, countryData]);
 
   useEffect(() => {
     setColoursLoading(true);
@@ -146,6 +127,15 @@ function App() {
     }
   }, [currentCountry]);
 
+  useEffect(() => {
+    const tempFilteredCountryData = [...countryData].filter(({ allNames }) => {
+      const deburredNames = deburr(allNames).toLocaleLowerCase();
+      const deburredSearchText = deburr(searchText).toLocaleLowerCase();
+      return deburredNames.includes(deburredSearchText);
+    });
+
+    setFilteredCountryData(tempFilteredCountryData);
+  }, [searchText, countryData]);
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -170,9 +160,8 @@ function App() {
               </CardSearchContainer>
 
               <List
-                names={countryNames}
                 setCurrentCountry={setCurrentCountry}
-                countryData={countryData}
+                countryData={filteredCountryData}
                 currentCountry={currentCountry}
                 loading={loading}
                 setColoursLoading={setColoursLoading}

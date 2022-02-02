@@ -9,7 +9,7 @@ export default function CountryCard({
 }) {
   if (name !== null && !coloursLoading) {
     return (
-      <StyledCard accentColors={accentColors}>
+      <StyledCard accentColors={accentColors} cardPadding='10px'>
         <h1>{name}</h1>
         {capital && <h3>Capital: {capital}</h3>}
         <StyledCardImg
@@ -18,7 +18,7 @@ export default function CountryCard({
           alt={`${name} flag`}
         />
         {otherNames.length > 0 && (
-          <OtherNamesContainer style={{ margin: "5px auto" }}>
+          <OtherNamesContainer>
             <h4>Other names</h4>
             <div>
               {otherNames.map((altName, index) => {
